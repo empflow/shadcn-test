@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image, { ImageProps } from "next/image";
 
 const ImageWithFallback = (props: ImageProps & { fallbackSrc: string }) => {
-  const { src, fallbackSrc, ...rest } = props;
+  const { src, fallbackSrc, alt, ...rest } = props;
   const [imgSrc, setImgSrc] = useState(src);
 
   return (
@@ -14,6 +14,7 @@ const ImageWithFallback = (props: ImageProps & { fallbackSrc: string }) => {
       onError={() => {
         setImgSrc(fallbackSrc);
       }}
+      alt={alt} // gets rid of eslint warning
     />
   );
 };

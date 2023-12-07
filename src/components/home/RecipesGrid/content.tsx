@@ -10,11 +10,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import getRecipes from "@/lib/data/getRecipes";
-import wait from "@/lib/wait";
 
 export default async function RecipesGridContent() {
   const recipes = await getRecipes();
-  await wait(10000);
 
   return (
     <>
