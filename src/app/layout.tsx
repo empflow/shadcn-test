@@ -16,7 +16,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Header />
-        <main>{children}</main>
+        <div className="p-4 mt-8">
+          <main className="max-w-[1000px] m-auto">{children}</main>
+        </div>
       </body>
     </html>
   );
