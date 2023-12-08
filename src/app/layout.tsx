@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import MainContent from "@/components/MainContent";
 
 export const metadata: Metadata = {
   title: "Recipes App",
@@ -14,11 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="flex flex-col min-h-screen">
         <Header />
-        <div className="p-4 mt-8">
-          <main className="max-w-[1000px] m-auto">{children}</main>
-        </div>
+        <MainContent {...{ children }} />
+        <Footer />
       </body>
     </html>
   );
