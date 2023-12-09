@@ -22,4 +22,14 @@ model Post {
   id String @id @default(cuid())
   title String @default("")
   content String @default("")
+  createdAt DateTime @default(now()) 
+  updatedAt DateTime @default(now())
+}
+
+model Recipe {
+  id String @id @default(cuid())
+  title String
+  timeToCookMins Int
+  description String
+  isVegan Boolean
 }

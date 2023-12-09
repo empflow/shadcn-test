@@ -17,22 +17,15 @@ export default async function RecipesGridContent() {
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {recipes.map(({ description, id, time, title, vegan, image }) => (
+        {recipes.map(({ description, id, timeToCookMins, title, vegan }) => (
           <Card key={id} className="flex flex-col">
             <CardHeader>
               <CardTitle>{title}</CardTitle>
-              <CardDescription>{time} mins</CardDescription>
+              <CardDescription>{timeToCookMins} mins</CardDescription>
             </CardHeader>
             <CardContent className="flex-grow flex flex-col gap-2 justify-between">
               <p className="line-clamp-4">{description}</p>
               <div className="relative aspect-square">
-                <ImageWithFallback
-                  alt={`An image of ${title}`}
-                  src={`/imgs/${image}`}
-                  className="rounded w-full object-cover"
-                  fill
-                  fallbackSrc="/imgs/bird.jpg"
-                />
                 {vegan && (
                   <Badge
                     variant="secondary"
