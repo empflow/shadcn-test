@@ -1,7 +1,7 @@
 "use client";
 import NextErrorProps from "@/lib/types/nextErrorProps";
 
-export default function Error({ error: _, reset }: NextErrorProps) {
+export default function Error({ reset }: NextErrorProps) {
   return (
     <div>
       <h1>An error has occurred</h1>
