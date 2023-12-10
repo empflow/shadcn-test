@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import RecipesGridContent from "./Content";
 import RecipesGridSkeleton from "./Skeleton";
+import RecipesGridContent from "./Content";
 
 export default async function RecipesGrid() {
   return (

@@ -1,4 +1,3 @@
-import ImageWithFallback from "@/components/ImageWithFallback";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,7 +16,7 @@ export default async function RecipesGridContent() {
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {recipes.map(({ description, id, timeToCookMins, title, vegan }) => (
+        {recipes.map(({ description, id, timeToCookMins, title, isVegan }) => (
           <Card key={id} className="flex flex-col">
             <CardHeader>
               <CardTitle>{title}</CardTitle>
@@ -26,7 +25,7 @@ export default async function RecipesGridContent() {
             <CardContent className="flex-grow flex flex-col gap-2 justify-between">
               <p className="line-clamp-4">{description}</p>
               <div className="relative aspect-square">
-                {vegan && (
+                {isVegan && (
                   <Badge
                     variant="secondary"
                     className="absolute shadow-md bottom-2 left-2"
