@@ -2,31 +2,33 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import addRecipeAction from "@/lib/actions/addRecipe";
-import { useFormState } from "react-dom";
-import RecipesGridPublishBtn from "../RecipesGrid/PublishBtn";
 import { Button } from "@/components/ui/button";
-
 import {
-  Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import addRecipeFormSchema, {
-  AddRecipeFormSchema,
-  AddRecipeFormSchemaInput,
+import AddRecipeFormSchema, {
+  AddRecipeFormSchemaType,
+  AddRecipeFormSchemaInputType,
 } from "@/lib/zod/schemas/addRecipeForm";
 import { Checkbox } from "@/components/ui/checkbox";
 import FormCheckboxContainer from "@/components/FormCheckboxContainer";
+import { useFormStatus } from "react-dom";
+import FormSubmitBtn from "@/components/FormSubmitBtn";
+import { useState } from "react";
 
 export default function AddRecipeFormContent() {
-  // const [state, dispatch] = useFormState(addRecipeAction, {});
-  const form = useForm<AddRecipeFormSchemaInput, any, AddRecipeFormSchema>({
-    resolver: zodResolver(addRecipeFormSchema),
+  const [isSending, setIsSending] = useState(false);
+  const form = useForm<
+    AddRecipeFormSchemaInputType,
+    any,
+    AddRecipeFormSchemaType
+  >({
+    resolver: zodResolver(AddRecipeFormSchema),
     defaultValues: {
       description: "",
       isVegan: false,
@@ -36,9 +38,10 @@ export default function AddRecipeFormContent() {
   });
   const { handleSubmit, control } = form;
 
-  async function onSubmit(data: AddRecipeFormSchema) {
-    const resp = await addRecipeAction(data);
-    console.log(resp);
+  async function onSubmit(data: AddRecipeFormSchemaType) {
+    setIsSending(true);
+    await addRecipeAction(data);
+    setIsSending(false);
   }
 
   return (
@@ -94,21 +97,23 @@ export default function AddRecipeFormContent() {
           control={control}
           name="isVegan"
           render={({ field }) => {
-            const { value, ...rest } = field;
             return (
               <FormItem>
-                <FormCheckboxContainer>
+                <div className="flex gap-1 items-center">
                   <FormControl>
-                    <Checkbox {...rest} checked={value} />
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                   </FormControl>
                   <FormLabel>Vegan</FormLabel>
-                </FormCheckboxContainer>
+                </div>
                 <FormMessage />
               </FormItem>
             );
           }}
         />
-        <Button type="submit">Submit</Button>
+        <FormSubmitBtn isLoading={isSending}>Create</FormSubmitBtn>
       </form>
     </FormProvider>
   );
