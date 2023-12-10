@@ -1,4 +1,4 @@
-import JsType from "../types/types";
+import JsType from "../types/jsType";
 
 export const getRequiredErrMsg = (fieldName: string) =>
   `${fieldName} is requried`;
