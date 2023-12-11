@@ -2,10 +2,13 @@
 
 import { Recipe } from "@prisma/client";
 import { db } from "../db";
-import { AddRecipeFormSchemaType } from "../zod/schemas/addRecipeForm";
+import {
+  AddRecipeFormSchemaServer,
+  AddRecipeFormSchemaType,
+} from "../zod/schemas/addRecipeForm";
 import { ErrCode } from "../errCodes";
-import wait from "../wait";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 type Success = {
   data: Recipe;
@@ -22,9 +25,12 @@ export type AddRecipeActionReturnT = Success | Error;
 export default async function addRecipeAction(
   recipeData: AddRecipeFormSchemaType
 ): Promise<AddRecipeActionReturnT> {
-  await wait(1000);
-  const recipe = await db.recipe.create({ data: recipeData });
+  const parsedRecipeData = AddRecipeFormSchemaServer.safeParse(recipeData);
+  if (!parsedRecipeData.success) {
+    return { error: "INVALID_DATA_SUBMITTED" };
+  }
 
+  await db.recipe.create({ data: parsedRecipeData.data });
   revalidatePath("/");
-  return { data: recipe };
+  redirect("/");
 }

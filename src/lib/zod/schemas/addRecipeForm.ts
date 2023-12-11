@@ -1,7 +1,9 @@
-import { z } from "zod";
+import { number, z } from "zod";
 import checkFormNumber from "../checkFormNumber";
 import {
   getInvalidTypeErrMsg,
+  getNumTooBigErrMsg,
+  getNumTooSmallErrMsg,
   getRequiredErrMsg,
   getStrTooLongErrMsg,
   getStrTooShortErrMsg,
@@ -12,6 +14,8 @@ const DEFAULT_MIN_LENGTH = 3;
 
 const TITLE_MAX_LENGTH = 300;
 const DESCRIPTION_MAX_LENGTH = 1500;
+const TIME_TO_COOK_MINS_MIN = 0.1;
+const TIME_TO_COOK_MINS_MAX = 10000;
 
 const FIELDS = {
   title: "Title",
@@ -33,7 +37,10 @@ const AddRecipeFormSchema = z.object({
     .max(TITLE_MAX_LENGTH, {
       message: getStrTooLongErrMsg(FIELDS.title, TITLE_MAX_LENGTH),
     }),
-  timeToCookMins: getFormNumSchema(FIELDS.timeToCookMins, { min: 1, max: 10 }),
+  timeToCookMins: getFormNumSchema(FIELDS.timeToCookMins, {
+    min: TIME_TO_COOK_MINS_MIN,
+    max: TIME_TO_COOK_MINS_MAX,
+  }),
   description: z
     .string({
       invalid_type_error: getInvalidTypeErrMsg(FIELDS.description, "string"),
@@ -52,6 +59,21 @@ const AddRecipeFormSchema = z.object({
     required_error: getRequiredErrMsg(FIELDS.isVegan),
   }),
 });
+
+export const AddRecipeFormSchemaServer = AddRecipeFormSchema.extend({
+  timeToCookMins: number({
+    required_error: getRequiredErrMsg(FIELDS.timeToCookMins),
+    invalid_type_error: getInvalidTypeErrMsg(FIELDS.timeToCookMins, "number"),
+  })
+    .min(1, getNumTooSmallErrMsg(FIELDS.timeToCookMins, TIME_TO_COOK_MINS_MIN))
+    .max(
+      TIME_TO_COOK_MINS_MAX,
+      getNumTooBigErrMsg(FIELDS.timeToCookMins, TIME_TO_COOK_MINS_MAX)
+    ),
+});
+export type AddRecipeFormSchemaServerType = z.infer<
+  typeof AddRecipeFormSchemaServer
+>;
 
 export type AddRecipeFormSchemaType = z.infer<typeof AddRecipeFormSchema>;
 export type AddRecipeFormSchemaInputType = z.input<typeof AddRecipeFormSchema>;
