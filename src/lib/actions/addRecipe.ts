@@ -1,20 +1,30 @@
 "use server";
 
-import { Post } from "@prisma/client";
+import { Recipe } from "@prisma/client";
 import { db } from "../db";
 import { AddRecipeFormSchemaType } from "../zod/schemas/addRecipeForm";
 import { ErrCode } from "../errCodes";
 import wait from "../wait";
 import { revalidatePath } from "next/cache";
 
-export type AddRecipeActionState = {
-  data?: Post;
-  error?: ErrCode;
+type Success = {
+  data: Recipe;
+  error?: undefined;
 };
 
-export default async function addRecipeAction(data: AddRecipeFormSchemaType) {
+type Error = {
+  data?: undefined;
+  error: ErrCode;
+};
+
+export type AddRecipeActionReturnT = Success | Error;
+
+export default async function addRecipeAction(
+  recipeData: AddRecipeFormSchemaType
+): Promise<AddRecipeActionReturnT> {
   await wait(1000);
-  const recipe = await db.recipe.create({ data });
+  const recipe = await db.recipe.create({ data: recipeData });
+
   revalidatePath("/");
-  return recipe;
+  return { data: recipe };
 }

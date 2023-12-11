@@ -31,5 +31,6 @@ model Recipe {
   title String
   timeToCookMins Int
   description String
+  updatedAt DateTime @default(now())
   isVegan Boolean
 }

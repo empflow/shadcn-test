@@ -1,7 +1,9 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
-import addRecipeAction from "@/lib/actions/addRecipe";
+import addRecipeAction, {
+  AddRecipeActionReturnT,
+} from "@/lib/actions/addRecipe";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -16,12 +18,11 @@ import AddRecipeFormSchema, {
   AddRecipeFormSchemaInputType,
 } from "@/lib/zod/schemas/addRecipeForm";
 import { Checkbox } from "@/components/ui/checkbox";
-import FormCheckboxContainer from "@/components/FormCheckboxContainer";
-import { useFormStatus } from "react-dom";
 import FormSubmitBtn from "@/components/FormSubmitBtn";
 import { useState } from "react";
 
 export default function AddRecipeFormContent() {
+  const [data, setData] = useState<null | AddRecipeActionReturnT>(null);
   const [isSending, setIsSending] = useState(false);
   const form = useForm<
     AddRecipeFormSchemaInputType,
@@ -40,8 +41,9 @@ export default function AddRecipeFormContent() {
 
   async function onSubmit(data: AddRecipeFormSchemaType) {
     setIsSending(true);
-    await addRecipeAction(data);
+    setData(await addRecipeAction(data));
     setIsSending(false);
+    form.reset();
   }
 
   return (
