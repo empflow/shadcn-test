@@ -2,7 +2,7 @@
 
 import { Post } from "@prisma/client";
 import { db } from "../db";
-import AddRecipeFormSchema from "../zod/schemas/addRecipeForm";
+import { AddRecipeFormSchemaType } from "../zod/schemas/addRecipeForm";
 import { ErrCode } from "../errCodes";
 import wait from "../wait";
 import { revalidatePath } from "next/cache";
@@ -12,10 +12,9 @@ export type AddRecipeActionState = {
   error?: ErrCode;
 };
 
-export default async function addRecipeAction(data: unknown) {
+export default async function addRecipeAction(data: AddRecipeFormSchemaType) {
   await wait(1000);
-  const recipeData = AddRecipeFormSchema.parse(data);
-  const recipe = await db.recipe.create({ data: recipeData });
+  const recipe = await db.recipe.create({ data });
   revalidatePath("/");
   return recipe;
 }
