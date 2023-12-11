@@ -14,8 +14,8 @@ type Opts =
     }
   | undefined;
 
-const getFormNumSchema = (fieldName: string, { min, max }: Opts = {}) => {
-  return z
+const getFormNumSchema = (fieldName: string, { min, max }: Opts = {}) =>
+  z
     .string({
       required_error: getRequiredErrMsg(fieldName),
       invalid_type_error: getInvalidTypeErrMsg(fieldName, "string"),
@@ -34,6 +34,5 @@ const getFormNumSchema = (fieldName: string, { min, max }: Opts = {}) => {
           getNumTooBigErrMsg(fieldName, max as number)
         )
     );
-};
 
 export default getFormNumSchema;
