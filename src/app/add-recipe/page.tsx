@@ -17,9 +17,10 @@ import AddRecipeFormSchema, {
   AddRecipeFormSchemaInputType,
 } from "@/lib/zod/schemas/addRecipeForm";
 import { Checkbox } from "@/components/ui/checkbox";
-import FormSubmitBtn from "@/components/FormSubmitBtn";
+import FormSubmitBtn from "@/components/Form/SubmitBtn";
 import { useState } from "react";
 import PageTitle from "@/components/PageTitle";
+import FormError from "@/components/Form/Error";
 
 export default function AddRecipe() {
   const [data, setData] = useState<null | AddRecipeActionReturnT>(null);
@@ -118,6 +119,9 @@ export default function AddRecipe() {
             }}
           />
           <FormSubmitBtn isLoading={isSending}>Create</FormSubmitBtn>
+          <FormError
+            msg={data?.error && "Something went wrong. Try again later"}
+          />
         </form>
       </FormProvider>
     </>

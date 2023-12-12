@@ -1,8 +1,8 @@
 "use client";
 
 import { ReactNode } from "react";
-import { Button } from "./ui/button";
-import Loading from "./Loading";
+import { Button } from "../ui/button";
+import Loading from "../Loading";
 import { cn } from "@/lib/shadcnUtils";
 
 type Props = {
