@@ -14,6 +14,7 @@ import {
   formatDateRelative,
 } from "@/lib/timeFormatters";
 import getRecipes from "@/lib/data/getRecipes";
+// test
 
 export async function generateStaticParams() {
   const recipes = await getRecipes();
