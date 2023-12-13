@@ -1,10 +1,10 @@
+import RecipesGrid from "@/components/Home/RecipesGrid/Index";
 import PageTitle from "@/components/PageTitle";
-import RecipesGrid from "@/components/home/RecipesGrid/Index";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 
-export default async function Home() {
+export default function Home() {
   return (
     <>
       <div className="mb-6">

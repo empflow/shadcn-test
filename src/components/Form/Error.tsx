@@ -19,4 +19,7 @@ const FormError = forwardRef<
   );
 });
 
+// why the fuck do i need this, eslint!??
+FormError.displayName = "FormError";
+
 export default FormError;
