@@ -1,1 +1,1 @@
-export default "@/components/Loading";
+export { default } from "@/components/Loading";

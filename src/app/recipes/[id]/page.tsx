@@ -13,7 +13,6 @@ import {
   formatDate,
   formatDateRelative,
 } from "@/lib/timeFormatters";
-import moment from "moment";
 
 export default async function Recipe({
   params: { id },
