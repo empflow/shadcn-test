@@ -13,6 +13,12 @@ import {
   formatDate,
   formatDateRelative,
 } from "@/lib/timeFormatters";
+import getRecipes from "@/lib/data/getRecipes";
+
+export async function generateStaticParams() {
+  const recipes = await getRecipes();
+  return recipes.map(({ id }) => ({ id }));
+}
 
 export default async function Recipe({
   params: { id },
