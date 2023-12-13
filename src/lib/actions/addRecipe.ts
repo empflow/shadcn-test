@@ -9,6 +9,7 @@ import {
 import { ErrCode } from "../errCodes";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import addRecipe from "../data/addRecipe";
 
 type Success = {
   data: Recipe;
@@ -30,7 +31,7 @@ export default async function addRecipeAction(
     return { error: "INVALID_DATA_SUBMITTED" };
   }
 
-  await db.recipe.create({ data: parsedRecipeData.data });
+  await addRecipe({ data: parsedRecipeData.data });
   revalidatePath("/");
   redirect("/");
 }
