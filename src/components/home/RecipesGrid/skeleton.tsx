@@ -12,7 +12,10 @@ export default function RecipesGridSkeleton() {
   const iterable = getIterable(6);
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div
+        role="status"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+      >
         {iterable.map((i) => (
           <Card key={i} className="flex flex-col">
             <CardHeader>
@@ -31,6 +34,7 @@ export default function RecipesGridSkeleton() {
             </CardFooter>
           </Card>
         ))}
+        <span className="sr-only">Loading...</span>
       </div>
     </>
   );
