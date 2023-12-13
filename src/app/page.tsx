@@ -10,9 +10,9 @@ export default async function Home() {
       <div className="mb-6">
         <PageTitle className="mb-2">Recipes</PageTitle>
         <Link href="/add-recipe">
-          <Button variant="outline" className="flex gap-1">
-            <span>Add Recipe</span>
-            <Plus />
+          <Button variant="outline">
+            Add Recipe
+            <Plus className="ml-1" />
           </Button>
         </Link>
       </div>
