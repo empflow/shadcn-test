@@ -42,9 +42,13 @@ export default function AddRecipe() {
 
   async function onSubmit(data: AddRecipeFormSchemaType) {
     setIsSending(true);
-    setData(await addRecipeAction(data));
+    try {
+      setData(await addRecipeAction(data));
+      form.reset();
+    } catch (_err) {
+      setData({ error: "INVALID_DATA_SUBMITTED" });
+    }
     setIsSending(false);
-    form.reset();
   }
 
   return (
