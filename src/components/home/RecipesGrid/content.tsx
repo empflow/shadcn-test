@@ -9,10 +9,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import getRecipes from "@/lib/data/getRecipes";
+import { convertMinsToHoursMinsStr } from "@/lib/timeFormatters";
+import Link from "next/link";
 
 export default async function RecipesGridContent() {
   const recipes = await getRecipes();
-
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -20,7 +21,9 @@ export default async function RecipesGridContent() {
           <Card key={id} className="flex flex-col">
             <CardHeader>
               <CardTitle>{title}</CardTitle>
-              <CardDescription>{timeToCookMins} mins</CardDescription>
+              <CardDescription>
+                {convertMinsToHoursMinsStr(timeToCookMins)}
+              </CardDescription>
             </CardHeader>
             <CardContent className="flex-grow flex flex-col gap-2 justify-between">
               <p className="line-clamp-4">{description}</p>
@@ -36,7 +39,9 @@ export default async function RecipesGridContent() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button variant="outline">View Recipe</Button>
+              <Link href={`/recipes/${id}`}>
+                <Button variant="outline">View Recipe</Button>
+              </Link>
             </CardFooter>
           </Card>
         ))}
