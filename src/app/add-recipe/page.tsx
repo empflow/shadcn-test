@@ -6,6 +6,7 @@ import addRecipeAction, {
 } from "@/lib/actions/addRecipe";
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -81,6 +82,24 @@ export default function AddRecipe() {
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
+                <FormDescription>
+                  A brief desciption of the meal
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* content */}
+          <FormField
+            control={control}
+            name="content"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Content</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
@@ -94,7 +113,7 @@ export default function AddRecipe() {
               <FormItem>
                 <FormLabel>Time to cook (in minutes)</FormLabel>
                 <FormControl>
-                  <Input {...field} type="number" />
+                  <Input min={0.1} {...field} type="number" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
