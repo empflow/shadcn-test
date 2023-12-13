@@ -1,7 +1,10 @@
+import { cache } from "react";
 import { db } from "../db";
 
-export default async function getRecipe(id: string) {
+const getRecipe = cache(async (id: string) => {
   return db.recipe.findUnique({
     where: { id },
   });
-}
+});
+
+export default getRecipe;
