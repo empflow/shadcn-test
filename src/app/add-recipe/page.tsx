@@ -22,6 +22,7 @@ import FormSubmitBtn from "@/components/Form/SubmitBtn";
 import { useState } from "react";
 import PageTitle from "@/components/PageTitle";
 import FormError from "@/components/Form/Error";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function AddRecipe() {
   const [data, setData] = useState<null | AddRecipeActionReturnT>(null);
@@ -98,7 +99,7 @@ export default function AddRecipe() {
               <FormItem>
                 <FormLabel>Content</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Textarea {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -113,7 +114,7 @@ export default function AddRecipe() {
               <FormItem>
                 <FormLabel>Time to cook (in minutes)</FormLabel>
                 <FormControl>
-                  <Input min={0.1} {...field} type="number" />
+                  <Input min={0} {...field} type="number" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
