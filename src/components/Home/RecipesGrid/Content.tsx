@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import getRecipes from "@/lib/data/getRecipes";
+import Link from "next/link";
 
 export default async function RecipesGridContent() {
   const recipes = await getRecipes();
@@ -35,7 +36,9 @@ export default async function RecipesGridContent() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button variant="outline">View Recipe</Button>
+              <Link href={`/recipes/${id}`}>
+                <Button variant="outline">View Recipe</Button>
+              </Link>
             </CardFooter>
           </Card>
         ))}
