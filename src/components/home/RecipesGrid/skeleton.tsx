@@ -21,7 +21,8 @@ export default function RecipesGridSkeleton() {
             </CardHeader>
             <CardContent className="flex-grow flex flex-col gap-2 justify-between">
               <div className="space-y-3">
-                <RepeatingElem count={3} elem={<Skeleton className="h-4" />} />
+                <RepeatingElem count={2} elem={<Skeleton className="h-4" />} />
+                <Skeleton className="h-4 w-1/2" />
               </div>
               <Skeleton className="w-full h-full aspect-square" />
             </CardContent>
