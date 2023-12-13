@@ -7,26 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    String @id @default(cuid())
-  name  String
-  age   Int
-  email String @unique
-  role  Role   @default(BASIC)
-
-  @@index([email]) // creates an index on the `email` column
-}
-
 model Recipe {
   id             String   @id @default(cuid())
   title          String
   timeToCookMins Int
   description    String
+  content        String
   updatedAt      DateTime @default(now())
   isVegan        Boolean
-}
-
-enum Role {
-  BASIC
-  ADMIN
 }
