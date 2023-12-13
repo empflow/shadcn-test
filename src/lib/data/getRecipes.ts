@@ -1,7 +1,10 @@
+import { cache } from "react";
 import { db } from "../db";
 
-export default async function getRecipes() {
+const getRecipes = cache(async () => {
   return db.recipe.findMany({
     orderBy: { updatedAt: "desc" },
   });
-}
+});
+
+export default getRecipes;
